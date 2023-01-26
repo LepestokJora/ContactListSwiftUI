@@ -8,19 +8,42 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //private var shownContats: [DataStore]
+    //private var list: []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        
+        
+        TabView {
+            ContactScreenView()
+                .tabItem {
+                    Image(systemName: "person.3")
+                    Text("Contact")
+                }
+            NumbersScreenView()
+                .tabItem {
+                    Image(systemName: "phone.arrow.up.right")
+                    Text("Number")
+                }
         }
-        .padding()
+    }
+    
+    List(shownContats) { shownContats in
+        NavigationLink(destination: NumbersScreenView(flight: flight)) {
+            ContactDetail(flight: flight)
+        }
+    }
+    .navigationTitle(boardName)
+    .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+           
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(shownContats: DataStore())
     }
 }
